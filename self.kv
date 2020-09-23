@@ -1,0 +1,105 @@
+
+<SelectableButton>:
+    
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (1, 1.0, 1.0, 0.5)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    on_release: app.root.current ='NotesScreen'
+     
+            
+    
+<AnasayfaScreen>:
+    name:'AnasayfaScreen'
+    
+    FloatLayout:
+        cols: 2
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: "resim10.jpg"
+        Button:    
+            text: "NOTES"
+            size_hint:0.8,0.1
+            pos_hint:{'x':0.1, 'y': 0.9}
+            background_color: (0.0, 0.0, 0.0, 0.3)
+            
+        RecycleView:
+            
+            id: rv
+            viewclass: 'SelectableButton'
+        
+            SelectableRecycleGridLayout:   
+                cols: 1
+                padding:root.window_sizes
+                spacing: 2
+                default_size: dp(60), dp(48)
+                default_size_hint: 1, None
+                size_hint_y: 1
+                height:self.minimum_height
+                orientation: 'vertical'
+                touch_multiselect: True
+                
+
+        Button:
+            text: "NEW NOT"
+            canvas.before:
+                Color: 
+                    rgba:2,5,1,2
+            size_hint:0.4,0.1
+            pos_hint:{"x":0.3,"y":0.02}
+            background_color: (0.0, 0.0, 0.0, 0.5)
+            on_release: app.root.current = 'NotesScreen'
+            on_press:root.yeninot()
+            
+
+       
+<NotesScreen>:
+    name:'NotesScreen'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "note.jpg"
+    
+    BoxLayout: 
+        orientation: "vertical"
+        exit_on_escape: False
+        
+            
+        
+	    
+        TextInput:
+            padding_y:root.window_sizes
+            padding_x:root.window_sizesx
+            font_size: 48
+            size_hint_y: 100
+            id: metin
+            multiline: True
+            background_color: (5.4, 1.5, 9.0, 0.0)
+        
+        
+      
+            
+        BoxLayout:
+            padding:20
+            size_hint_y: root.window_sizes/20
+            size_hint_x: 0.8
+            pos_hint:{"x":0.1,"y":0.7}
+            Button:
+                text: "DELETE"
+                background_color: (0.0, 0.0, 0.0, 0.5)
+                on_release: app.root.current = 'AnasayfaScreen'
+                on_press:root.sil()
+            Button:
+                text: "SAVE"
+                background_color: (0.0, 0.0, 0.0, 0.5)
+                on_press:root.ekle()
+                on_release: app.root.current = 'AnasayfaScreen'
+    
+    
+            
